@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "741091330773",
+    "project_id": "gareji-shop-app",
+    "storage_bucket": "gareji-shop-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741091330773:android:be8363b9f4623af11c305c",
+        "android_client_info": {
+          "package_name": "com.example.garaji_user_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741091330773-7td9m34r6pnk33fuspjhkp0f0gohge5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF_fU089OqvgmgMjjoCmgxAq84jkpXp8o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "741091330773-7td9m34r6pnk33fuspjhkp0f0gohge5h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
