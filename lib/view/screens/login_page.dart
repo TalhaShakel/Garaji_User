@@ -9,6 +9,7 @@ import 'package:garaji_user_app/view/screens/forget_password/reset_password.dart
 import 'package:garaji_user_app/view/screens/onboarding_screens/signup_page.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pinput/pinput.dart';
 
 import 'add_vehicle/about_vehicle/about_your_vehicle.dart';
 
@@ -25,6 +26,8 @@ class _LoginPageState extends State<LoginPage> {
   String countryCode = '';
 
   var phoneNumber = TextEditingController();
+
+  final TextEditingController _pinPutController = TextEditingController();
 
   phoneauth() async {
     try {
@@ -192,34 +195,43 @@ class _LoginPageState extends State<LoginPage> {
                                   border: Border.all(
                                       color: ConstColors.borderColor)),
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 18.0, top: 4),
-                                child: TextFormField(
-                                  cursorColor: Colors.grey,
-                                  obscureText: obsecurePassword,
-                                  decoration: InputDecoration(
-                                      hintText: "Password",
-                                      suffixIcon: IconButton(
-                                        padding: EdgeInsets.only(right: 16),
-                                        onPressed: () {
-                                          setState(() {
-                                            obsecurePassword =
-                                                !obsecurePassword;
-                                          });
-                                        },
-                                        icon: obsecurePassword
-                                            ? Icon(
-                                                Icons.visibility_off,
-                                                color: Color(0xffB8B8B8),
-                                              )
-                                            : Icon(
-                                                Icons.visibility,
-                                                color: ConstColors.primaryColor,
-                                              ),
-                                      ),
-                                      border: InputBorder.none),
-                                ),
-                              ),
+                                  padding:
+                                      const EdgeInsets.only(left: 18.0, top: 4),
+                                  child: Pinput(
+                                    length: 6,
+                                    // defaultPinTheme: defaultPinTheme,
+                                    controller: _pinPutController,
+                                    pinAnimationType: PinAnimationType.fade,
+                                    onSubmitted: (pin) {
+                                      try {} catch (e) {}
+                                    },
+                                  )
+                                  // TextFormField(
+                                  //   cursorColor: Colors.grey,
+                                  //   obscureText: obsecurePassword,
+                                  //   decoration: InputDecoration(
+                                  //       hintText: "Password",
+                                  //       suffixIcon: IconButton(
+                                  //         padding: EdgeInsets.only(right: 16),
+                                  //         onPressed: () {
+                                  //           setState(() {
+                                  //             obsecurePassword =
+                                  //                 !obsecurePassword;
+                                  //           });
+                                  //         },
+                                  //         icon: obsecurePassword
+                                  //             ? Icon(
+                                  //                 Icons.visibility_off,
+                                  //                 color: Color(0xffB8B8B8),
+                                  //               )
+                                  //             : Icon(
+                                  //                 Icons.visibility,
+                                  //                 color: ConstColors.primaryColor,
+                                  //               ),
+                                  //       ),
+                                  //       border: InputBorder.none),
+                                  // ),
+                                  ),
                             ),
                             SizedBox(
                               height: 12,
@@ -260,7 +272,7 @@ class _LoginPageState extends State<LoginPage> {
                                 //         builder: (context) => AboutVehicle()));
                                 try {
                                   await phoneauth();
-                                  Get.to(() => AboutVehicle());
+                                  // Get.to(() => AboutVehicle());
                                 } catch (e) {
                                   Get.snackbar("$e", "");
                                   print(e);
