@@ -10,7 +10,6 @@ import 'package:garaji_user_app/view/screens/onboarding_screens/signup_page.dart
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
-
 import 'add_vehicle/about_vehicle/about_your_vehicle.dart';
 
 class LoginPage extends StatefulWidget {
@@ -28,35 +27,41 @@ class _LoginPageState extends State<LoginPage> {
   var phoneNumber = TextEditingController();
 
   final TextEditingController _pinPutController = TextEditingController();
+  var _verificationCode;
 
   phoneauth() async {
     try {
       EasyLoading.show();
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber:
-            //  "+923178825400",
-            '${countryCode.toString().trim() + phoneNumber.text.trim().toString()}',
-        verificationCompleted: (PhoneAuthCredential credential) {
-          print(1);
-          print(credential.smsCode.toString() + "credential");
-          print(credential.verificationId.toString() + "credential");
-
-          print(credential.signInMethod.toString() + "credential");
-          print(2);
-        },
-        verificationFailed: (FirebaseAuthException e) {
-          print(e.message);
-        },
-        codeSent: (String verificationId, int? resendToken) {
-          print(verificationId);
-          print(resendToken);
-          print(3);
-        },
-        codeAutoRetrievalTimeout: (String verificationId) {
-          print(verificationId);
-          print(5);
-        },
-      );
+          phoneNumber:
+              //  "+923178825400",
+              '${countryCode.toString().trim() + phoneNumber.text.trim().toString()}',
+          verificationCompleted: (PhoneAuthCredential credential) async {
+            print(1);
+            await FirebaseAuth.instance
+                .signInWithCredential(credential)
+                .then((value) async {
+              if (value.user != null) {
+                Get.to(() => AboutVehicle());
+              }
+            });
+            print(2);
+          },
+          verificationFailed: (FirebaseAuthException e) {
+            print(e.message);
+          },
+          codeSent: (String verificationId, int? resendToken) {
+            _verificationCode = verificationId;
+            print(verificationId);
+            print(resendToken);
+            print(3);
+          },
+          codeAutoRetrievalTimeout: (String verificationId) {
+            _verificationCode = verificationId;
+            print(verificationId);
+            print(5);
+          },
+          timeout: Duration(seconds: 120));
       EasyLoading.dismiss();
     } catch (e) {
       EasyLoading.dismiss();
@@ -202,8 +207,22 @@ class _LoginPageState extends State<LoginPage> {
                                     // defaultPinTheme: defaultPinTheme,
                                     controller: _pinPutController,
                                     pinAnimationType: PinAnimationType.fade,
-                                    onSubmitted: (pin) {
-                                      try {} catch (e) {}
+                                    onSubmitted: (pin) async {
+                                      try {
+                                        await FirebaseAuth.instance
+                                            .signInWithCredential(
+                                                PhoneAuthProvider.credential(
+                                                    verificationId:
+                                                        _verificationCode!,
+                                                    smsCode: pin))
+                                            .then((value) {
+                                          if (value.user != null) {
+                                            Get.to(() => AboutVehicle());
+                                          }
+                                        });
+                                      } catch (e) {
+                                        print(e);
+                                      }
                                     },
                                   )
                                   // TextFormField(
@@ -414,7 +433,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             SizedBox(
-                              height: 5,
+                              height: 50,
                             ),
                           ],
                         ),
