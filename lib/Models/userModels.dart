@@ -4,7 +4,7 @@ class UserModel {
   // String? dob;
   // String? description;
   String? fullName;
-  String? userEmail, vehicleBrand;
+  String? userEmail, vehicleBrand, vehicle;
   // int? singup_step;
   // List? award;
   // List ? album;
@@ -31,6 +31,7 @@ class UserModel {
       this.password,
       this.fullName,
       this.userEmail,
+      this.vehicle,
       // this.userImage,
       this.vehicleBrand,
       // required this.links,
@@ -68,7 +69,8 @@ class UserModel {
       "userPhone": userPhone,
       "fullName": fullName,
       "userEmail": userEmail,
-      "vehicleBrand": ""
+      "vehicleBrand": "",
+      "vehicle": ""
       // "userImage": userImage,
       // "nationality": Nationality,
       // "dob": dob,
