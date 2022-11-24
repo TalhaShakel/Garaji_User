@@ -5,11 +5,16 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:garaji_user_app/components/bottom_bar.dart';
 import 'package:garaji_user_app/constants/const_colors.dart';
 import 'package:garaji_user_app/constants/const_images.dart';
+import 'package:garaji_user_app/view/home.dart';
+import 'package:garaji_user_app/view/screens/add_vehicle/request_services.dart';
 import 'package:garaji_user_app/view/screens/forget_password/reset_password.dart';
+import 'package:garaji_user_app/view/screens/home_page/home_page.dart';
 import 'package:garaji_user_app/view/screens/onboarding_screens/signup_page.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
+import '../../Models/userModels.dart';
+import '../../Services/service.dart';
 import 'add_vehicle/about_vehicle/about_your_vehicle.dart';
 
 class LoginPage extends StatefulWidget {
@@ -29,47 +34,77 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _pinPutController = TextEditingController();
   var _verificationCode;
 
-  phoneauth() async {
+  var email = TextEditingController();
+  var password = TextEditingController();
+  signin() async {
     try {
       EasyLoading.show();
-      await FirebaseAuth.instance.verifyPhoneNumber(
-          phoneNumber:
-              //  "+923178825400",
-              '${countryCode.toString().trim() + phoneNumber.text.trim().toString()}',
-          verificationCompleted: (PhoneAuthCredential credential) async {
-            print(1);
-            await FirebaseAuth.instance
-                .signInWithCredential(credential)
-                .then((value) async {
-              if (value.user != null) {
-                Get.to(() => AboutVehicle());
-              }
-            });
-            print(2);
-          },
-          verificationFailed: (FirebaseAuthException e) {
-            print(e.message);
-          },
-          codeSent: (String verificationId, int? resendToken) {
-            _verificationCode = verificationId;
-            print(verificationId);
-            print(resendToken);
-            print(3);
-          },
-          codeAutoRetrievalTimeout: (String verificationId) {
-            _verificationCode = verificationId;
-            print(verificationId);
-            print(5);
-          },
-          timeout: Duration(seconds: 120));
-      EasyLoading.dismiss();
-    } catch (e) {
-      EasyLoading.dismiss();
+      print(1);
+      UserCredential credential = await fAuth.signInWithEmailAndPassword(
+          email: email.text.trim().toString(),
+          password: password.text.trim().toString());
+      var document = await firestore_get("user", "${credential.user!.uid}");
+      print(document.toString());
 
+      UserModel userdata =
+          UserModel.fromMap(document.data() as Map<String, dynamic>);
+      currentUserData = userdata;
+      print(UserModel());
+      EasyLoading.dismiss();
+      if (currentUserData.vehicleInformation == false) {
+        Get.snackbar("Please Fill Your Vehicle Informations", "");
+        Get.to(() => RequestServices());
+      } else {
+        Get.to(() => Home());
+      }
+    } on FirebaseException catch (e) {
+      EasyLoading.dismiss();
       print(e);
-      Get.snackbar("$e", "error");
+      Get.snackbar("${e.message}", "");
     }
   }
+
+  // phoneauth() async {
+  //   try {
+  //     EasyLoading.show();
+  //     await FirebaseAuth.instance.verifyPhoneNumber(
+  //         phoneNumber:
+  //             //  "+923178825400",
+  //             '${countryCode.toString().trim() + phoneNumber.text.trim().toString()}',
+  //         verificationCompleted: (PhoneAuthCredential credential) async {
+  //           print(1);
+  //           await FirebaseAuth.instance
+  //               .signInWithCredential(credential)
+  //               .then((value) async {
+  //             if (value.user != null) {
+  //               Get.to(() => AboutVehicle());
+  //             }
+  //           });
+  //           print(2);
+  //         },
+  //         verificationFailed: (FirebaseAuthException e) {
+  //           print(e.message);
+  //         },
+  //         codeSent: (String verificationId, int? resendToken) {
+  //           _verificationCode = verificationId;
+  //           print(verificationId);
+  //           print(resendToken);
+  //           print(3);
+  //         },
+  //         codeAutoRetrievalTimeout: (String verificationId) {
+  //           _verificationCode = verificationId;
+  //           print(verificationId);
+  //           print(5);
+  //         },
+  //         timeout: Duration(seconds: 120));
+  //     EasyLoading.dismiss();
+  //   } catch (e) {
+  //     EasyLoading.dismiss();
+
+  //     print(e);
+  //     Get.snackbar("$e", "error");
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -145,49 +180,25 @@ class _LoginPageState extends State<LoginPage> {
                               height: 35,
                             ),
                             Container(
-                                height: 52,
-                                width: double.infinity,
-                                margin: EdgeInsets.only(left: 30, right: 30),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(80),
-                                    border: Border.all(
-                                        color: ConstColors.borderColor)),
-                                child: Row(
-                                  children: [
-                                    CountryCodePicker(
-                                      initialSelection: 'PK',
-                                      showFlag: true,
-                                      showFlagDialog: true,
-                                      showOnlyCountryWhenClosed: false,
-                                      showCountryOnly: false,
-                                      alignLeft: false,
-                                      showDropDownButton: true,
-                                      textStyle: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                      onInit: (c) {
-                                        countryCode = c!.dialCode!;
-                                      },
-                                      onChanged: (c) {
-                                        setState(() {
-                                          countryCode = c.dialCode!;
-                                        });
-                                        print(c.dialCode);
-                                      },
-                                    ),
-                                    Expanded(
-                                      child: TextFormField(
-                                        controller: phoneNumber,
-                                        keyboardType: TextInputType.phone,
-                                        cursorColor: Colors.grey,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )),
+                              height: 52,
+                              width: double.infinity,
+                              margin: EdgeInsets.only(left: 30, right: 30),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(80),
+                                  border: Border.all(
+                                      color: ConstColors.borderColor)),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 18.0, top: 4),
+                                child: TextFormField(
+                                  controller: email,
+                                  cursorColor: Colors.grey,
+                                  decoration: InputDecoration(
+                                      hintText: "Email",
+                                      border: InputBorder.none),
+                                ),
+                              ),
+                            ),
                             SizedBox(
                               height: 20,
                             ),
@@ -200,58 +211,144 @@ class _LoginPageState extends State<LoginPage> {
                                   border: Border.all(
                                       color: ConstColors.borderColor)),
                               child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 18.0, top: 4),
-                                  child: Pinput(
-                                    length: 6,
-                                    // defaultPinTheme: defaultPinTheme,
-                                    controller: _pinPutController,
-                                    pinAnimationType: PinAnimationType.fade,
-                                    onSubmitted: (pin) async {
-                                      try {
-                                        await FirebaseAuth.instance
-                                            .signInWithCredential(
-                                                PhoneAuthProvider.credential(
-                                                    verificationId:
-                                                        _verificationCode!,
-                                                    smsCode: pin))
-                                            .then((value) {
-                                          if (value.user != null) {
-                                            Get.to(() => AboutVehicle());
-                                          }
-                                        });
-                                      } catch (e) {
-                                        print(e);
-                                      }
-                                    },
-                                  )
-                                  // TextFormField(
-                                  //   cursorColor: Colors.grey,
-                                  //   obscureText: obsecurePassword,
-                                  //   decoration: InputDecoration(
-                                  //       hintText: "Password",
-                                  //       suffixIcon: IconButton(
-                                  //         padding: EdgeInsets.only(right: 16),
-                                  //         onPressed: () {
-                                  //           setState(() {
-                                  //             obsecurePassword =
-                                  //                 !obsecurePassword;
-                                  //           });
-                                  //         },
-                                  //         icon: obsecurePassword
-                                  //             ? Icon(
-                                  //                 Icons.visibility_off,
-                                  //                 color: Color(0xffB8B8B8),
-                                  //               )
-                                  //             : Icon(
-                                  //                 Icons.visibility,
-                                  //                 color: ConstColors.primaryColor,
-                                  //               ),
-                                  //       ),
-                                  //       border: InputBorder.none),
-                                  // ),
-                                  ),
+                                padding:
+                                    const EdgeInsets.only(left: 18.0, top: 4),
+                                child: TextFormField(
+                                  controller: password,
+                                  cursorColor: Colors.grey,
+                                  obscureText: obsecurePassword,
+                                  decoration: InputDecoration(
+                                      hintText: "Password",
+                                      suffixIcon: IconButton(
+                                        padding: EdgeInsets.only(right: 16),
+                                        onPressed: () {
+                                          setState(() {
+                                            obsecurePassword =
+                                                !obsecurePassword;
+                                          });
+                                        },
+                                        icon: obsecurePassword
+                                            ? Icon(
+                                                Icons.visibility_off,
+                                                color: Color(0xffB8B8B8),
+                                              )
+                                            : Icon(
+                                                Icons.visibility,
+                                                color: ConstColors.primaryColor,
+                                              ),
+                                      ),
+                                      border: InputBorder.none),
+                                ),
+                              ),
                             ),
+                            // Container(
+                            //     height: 52,
+                            //     width: double.infinity,
+                            //     margin: EdgeInsets.only(left: 30, right: 30),
+                            //     decoration: BoxDecoration(
+                            //         borderRadius: BorderRadius.circular(80),
+                            //         border: Border.all(
+                            //             color: ConstColors.borderColor)),
+                            //     child: Row(
+                            //       children: [
+                            //         CountryCodePicker(
+                            //           initialSelection: 'PK',
+                            //           showFlag: true,
+                            //           showFlagDialog: true,
+                            //           showOnlyCountryWhenClosed: false,
+                            //           showCountryOnly: false,
+                            //           alignLeft: false,
+                            //           showDropDownButton: true,
+                            //           textStyle: TextStyle(
+                            //               fontSize: 14,
+                            //               fontWeight: FontWeight.bold,
+                            //               color: Colors.black),
+                            //           onInit: (c) {
+                            //             countryCode = c!.dialCode!;
+                            //           },
+                            //           onChanged: (c) {
+                            //             setState(() {
+                            //               countryCode = c.dialCode!;
+                            //             });
+                            //             print(c.dialCode);
+                            //           },
+                            //         ),
+                            //         Expanded(
+                            //           child: TextFormField(
+                            //             controller: phoneNumber,
+                            //             keyboardType: TextInputType.phone,
+                            //             cursorColor: Colors.grey,
+                            //             decoration: InputDecoration(
+                            //               border: InputBorder.none,
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     )),
+                            // SizedBox(
+                            //   height: 20,
+                            // ),
+                            // Container(
+                            //   height: 52,
+                            //   width: double.infinity,
+                            //   margin: EdgeInsets.only(left: 30, right: 30),
+                            //   decoration: BoxDecoration(
+                            //       borderRadius: BorderRadius.circular(80),
+                            //       border: Border.all(
+                            //           color: ConstColors.borderColor)),
+                            //   child: Padding(
+                            //       padding:
+                            //           const EdgeInsets.only(left: 18.0, top: 4),
+                            //       child: Pinput(
+                            //         length: 6,
+                            //         // defaultPinTheme: defaultPinTheme,
+                            //         controller: _pinPutController,
+                            //         pinAnimationType: PinAnimationType.fade,
+                            //         onSubmitted: (pin) async {
+                            //           try {
+                            //             await FirebaseAuth.instance
+                            //                 .signInWithCredential(
+                            //                     PhoneAuthProvider.credential(
+                            //                         verificationId:
+                            //                             _verificationCode!,
+                            //                         smsCode: pin))
+                            //                 .then((value) {
+                            //               if (value.user != null) {
+                            //                 Get.to(() => AboutVehicle());
+                            //               }
+                            //             });
+                            //           } catch (e) {
+                            //             print(e);
+                            //           }
+                            //         },
+                            //       )
+                            // TextFormField(
+                            //   cursorColor: Colors.grey,
+                            //   obscureText: obsecurePassword,
+                            //   decoration: InputDecoration(
+                            //       hintText: "Password",
+                            //       suffixIcon: IconButton(
+                            //         padding: EdgeInsets.only(right: 16),
+                            //         onPressed: () {
+                            //           setState(() {
+                            //             obsecurePassword =
+                            //                 !obsecurePassword;
+                            //           });
+                            //         },
+                            //         icon: obsecurePassword
+                            //             ? Icon(
+                            //                 Icons.visibility_off,
+                            //                 color: Color(0xffB8B8B8),
+                            //               )
+                            //             : Icon(
+                            //                 Icons.visibility,
+                            //                 color: ConstColors.primaryColor,
+                            //               ),
+                            //       ),
+                            //       border: InputBorder.none),
+                            // ),
+                            // ),
+                            // ),
                             SizedBox(
                               height: 12,
                             ),
@@ -289,13 +386,9 @@ class _LoginPageState extends State<LoginPage> {
                                 //     context,
                                 //     MaterialPageRoute(
                                 //         builder: (context) => AboutVehicle()));
-                                try {
-                                  await phoneauth();
-                                  // Get.to(() => AboutVehicle());
-                                } catch (e) {
-                                  Get.snackbar("$e", "");
-                                  print(e);
-                                }
+
+                                await signin();
+                                // Get.to(() => AboutVehicle());
                               },
                               child: Container(
                                 height: 50,

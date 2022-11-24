@@ -1,6 +1,14 @@
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:garaji_user_app/Models/userModels.dart';
+import 'package:garaji_user_app/Services/service.dart';
+import 'package:garaji_user_app/view/home.dart';
+import 'package:garaji_user_app/view/screens/home_page/home_page.dart';
 import 'package:garaji_user_app/view/screens/login_page.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/const_colors.dart';
@@ -15,6 +23,15 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   bool obsecurePassword = false;
   String countryCode = '';
+  var name = TextEditingController();
+  var phone = TextEditingController();
+
+  var email = TextEditingController();
+
+  var password = TextEditingController();
+
+  var confirmpassword = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,6 +116,8 @@ class _SignUpState extends State<SignUp> {
                                 padding:
                                     const EdgeInsets.only(left: 18.0, top: 4),
                                 child: TextFormField(
+                                  // controller:
+                                  controller: name,
                                   cursorColor: Colors.grey,
                                   decoration: InputDecoration(
                                       hintText: "Full Name",
@@ -143,6 +162,7 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                     Expanded(
                                       child: TextFormField(
+                                        controller: phone,
                                         keyboardType: TextInputType.phone,
                                         cursorColor: Colors.grey,
                                         decoration: InputDecoration(
@@ -167,6 +187,7 @@ class _SignUpState extends State<SignUp> {
                                 padding:
                                     const EdgeInsets.only(left: 18.0, top: 4),
                                 child: TextFormField(
+                                  controller: email,
                                   cursorColor: Colors.grey,
                                   decoration: InputDecoration(
                                       hintText: "Email",
@@ -189,6 +210,7 @@ class _SignUpState extends State<SignUp> {
                                 padding:
                                     const EdgeInsets.only(left: 18.0, top: 4),
                                 child: TextFormField(
+                                  controller: password,
                                   cursorColor: Colors.grey,
                                   obscureText: obsecurePassword,
                                   decoration: InputDecoration(
@@ -230,6 +252,7 @@ class _SignUpState extends State<SignUp> {
                                 padding:
                                     const EdgeInsets.only(left: 18.0, top: 4),
                                 child: TextFormField(
+                                  controller: confirmpassword,
                                   cursorColor: Colors.grey,
                                   obscureText: obsecurePassword,
                                   decoration: InputDecoration(
@@ -259,22 +282,61 @@ class _SignUpState extends State<SignUp> {
                             SizedBox(
                               height: 30,
                             ),
-                            Container(
-                              height: 50,
-                              width: double.infinity,
-                              margin: EdgeInsets.only(left: 30, right: 30),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                color: Color(0xffFF7D01),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Register",
-                                  style: GoogleFonts.roboto(
-                                    textStyle: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 17),
+                            GestureDetector(
+                              onTap: () async {
+                                try {
+                                  EasyLoading.show();
+                                  UserCredential credential = await fAuth
+                                      .createUserWithEmailAndPassword(
+                                          email: email.text.trim().toString(),
+                                          password:
+                                              password.text.trim().toString());
+                                  UserModel newUser = UserModel(
+                                      uid: credential.user!.uid,
+                                      password: password.text.trim().toString(),
+                                      fullName: name.text.trim().toString(),
+                                      userEmail: email.text.trim().toString(),
+                                      userPhone: phone.text.trim().toString(),
+                                      vehicleInformation: false);
+                                  await firestore_set("user",
+                                      credential.user!.uid, newUser.toMap());
+                                  EasyLoading.dismiss();
+                                  print("New User Created!");
+                                  UserCredential user =
+                                      await fAuth.signInWithEmailAndPassword(
+                                          email: newUser.userEmail
+                                              .toString()
+                                              .trim(),
+                                          password: newUser.password
+                                              .toString()
+                                              .trim());
+                                  var document = await firestore_get(
+                                      "user", "${credential.user!.uid}");
+                                  UserModel.fromMap(
+                                      document.data() as Map<String, dynamic>);
+                                  Get.to(() => Home());
+                                } on FirebaseException catch (e) {
+                                  print(e);
+                                  Get.snackbar("${e.message}", "");
+                                }
+                              },
+                              child: Container(
+                                height: 50,
+                                width: double.infinity,
+                                margin: EdgeInsets.only(left: 30, right: 30),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Color(0xffFF7D01),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Register",
+                                    style: GoogleFonts.roboto(
+                                      textStyle: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 17),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -363,7 +425,7 @@ class _SignUpState extends State<SignUp> {
                               height: 50,
                             ),
                             InkWell(
-                              onTap: () {
+                              onTap: () async {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
