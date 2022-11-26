@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:garaji_user_app/Services/service.dart';
 import 'package:garaji_user_app/constants/const_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/const_images.dart';
 
 class EditProfile extends StatelessWidget {
-  const EditProfile({Key? key}) : super(key: key);
+  var about = TextEditingController(text: currentUserData.fullName.toString());
+
+  var email = TextEditingController(text: currentUserData.userEmail.toString());
+
+  var phone = TextEditingController(text: currentUserData.userPhone.toString());
+
+  var address = TextEditingController(text: currentUserData.zipCode.toString());
+  var name = TextEditingController(text: currentUserData.fullName.toString());
+
+  EditProfile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -127,6 +137,8 @@ class EditProfile extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15.0),
                     child: TextFormField(
+                      // controller: ,
+                      controller: name,
                       cursorColor: Color(0xffEAEAEA),
                       decoration: InputDecoration(
                           hintText: "Omar faruk",
@@ -175,6 +187,7 @@ class EditProfile extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15.0),
                     child: TextFormField(
+                      controller: about,
                       cursorColor: Color(0xffEAEAEA),
                       decoration: InputDecoration(
                           hintText: "About yourself",
@@ -223,6 +236,7 @@ class EditProfile extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15.0),
                     child: TextFormField(
+                      controller: email,
                       cursorColor: Color(0xffEAEAEA),
                       decoration: InputDecoration(
                           hintText: "hassan@gmail.com",
@@ -271,6 +285,7 @@ class EditProfile extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15.0),
                     child: TextFormField(
+                      controller: phone,
                       cursorColor: Color(0xffEAEAEA),
                       decoration: InputDecoration(
                           hintText: "+923198540852",
@@ -319,6 +334,7 @@ class EditProfile extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15.0),
                     child: TextFormField(
+                      controller: address,
                       cursorColor: Color(0xffEAEAEA),
                       decoration: InputDecoration(
                           hintText: "United Kingdom (12km away)",
@@ -368,7 +384,7 @@ class EditProfile extends StatelessWidget {
                               color: Colors.white54),
                           child: Center(
                             child: Text(
-                              "Year : 02",
+                              "Year : ${currentUserData.vehicleYear}",
                               style: GoogleFonts.quicksand(
                                 textStyle: TextStyle(
                                     color: Color(0xffffffff),
@@ -389,7 +405,7 @@ class EditProfile extends StatelessWidget {
                               color: Colors.white54),
                           child: Center(
                             child: Text(
-                              "Model : Acura",
+                              "Model : ${currentUserData.vehicleModel}",
                               style: GoogleFonts.quicksand(
                                 textStyle: TextStyle(
                                     color: Color(0xffffffff),
@@ -415,7 +431,7 @@ class EditProfile extends StatelessWidget {
                               color: Colors.white54),
                           child: Center(
                             child: Text(
-                              "Brand : Acura",
+                              "Brand : ${currentUserData.vehicleYear}",
                               style: GoogleFonts.quicksand(
                                 textStyle: TextStyle(
                                     color: Color(0xffffffff),
@@ -436,7 +452,7 @@ class EditProfile extends StatelessWidget {
                               color: Colors.white54),
                           child: Center(
                             child: Text(
-                              "Sub model : Acura",
+                              "Sub model : ${currentUserData.vehicleModel}",
                               style: GoogleFonts.quicksand(
                                 textStyle: TextStyle(
                                     color: Color(0xffffffff),
@@ -481,7 +497,7 @@ class EditProfile extends StatelessWidget {
                               color: Colors.white54),
                           child: Center(
                             child: Text(
-                              "Transmicion Type : Acura",
+                              "Transmicion Type : ${currentUserData.vehicleModel}",
                               style: GoogleFonts.quicksand(
                                 textStyle: TextStyle(
                                     color: Color(0xffffffff),
@@ -508,7 +524,7 @@ class EditProfile extends StatelessWidget {
                               color: Colors.white54),
                           child: Center(
                             child: Text(
-                              "Engine Liters or Electric : Acura",
+                              "Engine Liters or Electric : ${currentUserData.vehicleEngine}",
                               style: GoogleFonts.quicksand(
                                 textStyle: TextStyle(
                                     color: Color(0xffffffff),
@@ -529,7 +545,7 @@ class EditProfile extends StatelessWidget {
                               color: Colors.white54),
                           child: Center(
                             child: Text(
-                              "Vn : Acura",
+                              "Vn : ${currentUserData.vehicleBrand}",
                               style: GoogleFonts.quicksand(
                                 textStyle: TextStyle(
                                     color: Color(0xffffffff),
