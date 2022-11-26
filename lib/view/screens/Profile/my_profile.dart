@@ -156,7 +156,7 @@ class MyProfile extends StatelessWidget {
                         width: 12,
                       ),
                       Text(
-                        "United Kingdom (12km away)",
+                        "${currentUserData.zipCode}",
                         style: GoogleFonts.roboto(
                           textStyle: TextStyle(
                               color: Color(0xff3C3D3F),
@@ -229,7 +229,7 @@ class MyProfile extends StatelessWidget {
                                 color: Colors.white54),
                             child: Center(
                               child: Text(
-                                "Year : 02",
+                                "Year : ${currentUserData.vehicleYear}",
                                 style: GoogleFonts.quicksand(
                                   textStyle: TextStyle(
                                       color: Color(0xffffffff),
@@ -250,7 +250,7 @@ class MyProfile extends StatelessWidget {
                                 color: Colors.white54),
                             child: Center(
                               child: Text(
-                                "Model : Acura",
+                                "Model : ${currentUserData.vehicleModel}",
                                 style: GoogleFonts.quicksand(
                                   textStyle: TextStyle(
                                       color: Color(0xffffffff),
@@ -276,7 +276,7 @@ class MyProfile extends StatelessWidget {
                                 color: Colors.white54),
                             child: Center(
                               child: Text(
-                                "Brand : Acura",
+                                "Brand : ${currentUserData.vehicleYear}",
                                 style: GoogleFonts.quicksand(
                                   textStyle: TextStyle(
                                       color: Color(0xffffffff),
@@ -297,7 +297,7 @@ class MyProfile extends StatelessWidget {
                                 color: Colors.white54),
                             child: Center(
                               child: Text(
-                                "Sub model : Acura",
+                                "Sub model : ${currentUserData.vehicleModel}",
                                 style: GoogleFonts.quicksand(
                                   textStyle: TextStyle(
                                       color: Color(0xffffffff),
@@ -342,7 +342,7 @@ class MyProfile extends StatelessWidget {
                                 color: Colors.white54),
                             child: Center(
                               child: Text(
-                                "Transmicion Type : Acura",
+                                "Transmicion Type : ${currentUserData.vehicleModel}",
                                 style: GoogleFonts.quicksand(
                                   textStyle: TextStyle(
                                       color: Color(0xffffffff),
@@ -369,7 +369,7 @@ class MyProfile extends StatelessWidget {
                                 color: Colors.white54),
                             child: Center(
                               child: Text(
-                                "Engine Liters or Electric : Acura",
+                                "Engine Liters or Electric : ${currentUserData.vehicleEngine}",
                                 style: GoogleFonts.quicksand(
                                   textStyle: TextStyle(
                                       color: Color(0xffffffff),
@@ -390,7 +390,7 @@ class MyProfile extends StatelessWidget {
                                 color: Colors.white54),
                             child: Center(
                               child: Text(
-                                "Vn : Acura",
+                                "Vn : ${currentUserData.vehicleBrand}",
                                 style: GoogleFonts.quicksand(
                                   textStyle: TextStyle(
                                       color: Color(0xffffffff),

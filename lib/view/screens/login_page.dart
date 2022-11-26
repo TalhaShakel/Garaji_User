@@ -58,21 +58,27 @@ class _LoginPageState extends State<LoginPage> {
       if (currentUserData.vehicleInformation == false) {
         Get.snackbar("Please Fill Your Vehicle Informations", "");
         if (currentUserData.vehicle == "") {
+          print(0);
           Get.snackbar("Please select the vehicle", "");
           Get.to(() => RequestServices());
         } else if (currentUserData.vehicleYear == "") {
+          print(1);
           Get.snackbar("Please select the vehicle Year", "");
           Get.to(() => AboutVehicle());
         } else if (currentUserData.vehicleBrand == "") {
+          print(2);
           Get.snackbar("Please select the vehicle brand", "");
           Get.to(() => ByMake1());
         } else if (currentUserData.vehicleModel == "") {
+          print(3);
           Get.snackbar("Please select the vehicle Model", "");
           Get.to(() => ByMake2());
         } else if (currentUserData.vehicleEngine == "") {
+          print(4);
           Get.snackbar("Please select the vehicle Engine", "");
           Get.to(() => ByMake3());
         } else if (currentUserData.zipCode == "") {
+          print(5);
           Get.snackbar("Please Enter the Zip Code", "");
           Get.to(() => ByMake4());
         }

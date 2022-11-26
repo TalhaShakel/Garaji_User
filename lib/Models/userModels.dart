@@ -48,7 +48,7 @@ class UserModel {
       // required this.links,
       this.userPhone});
 
-  UserModel.fromMap(Map<String, dynamic> map) {
+  UserModel.fromMap(map) {
     // album = map["album"];
     // time = map["time"];
     // links = map["links"];
