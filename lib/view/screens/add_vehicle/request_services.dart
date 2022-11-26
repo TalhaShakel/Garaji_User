@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:garaji_user_app/Services/service.dart';
 import 'package:garaji_user_app/view/screens/add_vehicle/about_vehicle/about_your_vehicle.dart';
 import 'package:get/get.dart';
@@ -138,13 +139,16 @@ class RequestServices extends StatelessWidget {
                     Get.snackbar("Please Select The Vehicle", "");
                   } else {
                     try {
+                      EasyLoading.show();
                       firestore_update(
                           "user", currentUserData.uid, {"vehicle": vehicle});
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => AboutVehicle()));
+                      EasyLoading.dismiss();
                     } on FirebaseException catch (e) {
+                      EasyLoading.dismiss();
                       print(e);
                       Get.snackbar("${e.message}", "");
                     }

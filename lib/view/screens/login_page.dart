@@ -7,6 +7,10 @@ import 'package:garaji_user_app/constants/const_colors.dart';
 import 'package:garaji_user_app/constants/const_images.dart';
 import 'package:garaji_user_app/view/home.dart';
 import 'package:garaji_user_app/view/screens/add_vehicle/request_services.dart';
+import 'package:garaji_user_app/view/screens/by_maka_4.dart';
+import 'package:garaji_user_app/view/screens/by_make_1.dart';
+import 'package:garaji_user_app/view/screens/by_make_2.dart';
+import 'package:garaji_user_app/view/screens/by_make_3.dart';
 import 'package:garaji_user_app/view/screens/forget_password/reset_password.dart';
 import 'package:garaji_user_app/view/screens/home_page/home_page.dart';
 import 'package:garaji_user_app/view/screens/onboarding_screens/signup_page.dart';
@@ -53,7 +57,25 @@ class _LoginPageState extends State<LoginPage> {
       EasyLoading.dismiss();
       if (currentUserData.vehicleInformation == false) {
         Get.snackbar("Please Fill Your Vehicle Informations", "");
-        Get.to(() => RequestServices());
+        if (currentUserData.vehicle == "") {
+          Get.snackbar("Please select the vehicle", "");
+          Get.to(() => RequestServices());
+        } else if (currentUserData.vehicleYear == "") {
+          Get.snackbar("Please select the vehicle Year", "");
+          Get.to(() => AboutVehicle());
+        } else if (currentUserData.vehicleBrand == "") {
+          Get.snackbar("Please select the vehicle brand", "");
+          Get.to(() => ByMake1());
+        } else if (currentUserData.vehicleModel == "") {
+          Get.snackbar("Please select the vehicle Model", "");
+          Get.to(() => ByMake2());
+        } else if (currentUserData.vehicleEngine == "") {
+          Get.snackbar("Please select the vehicle Engine", "");
+          Get.to(() => ByMake3());
+        } else if (currentUserData.zipCode == "") {
+          Get.snackbar("Please Enter the Zip Code", "");
+          Get.to(() => ByMake4());
+        }
       } else {
         Get.to(() => Home());
       }

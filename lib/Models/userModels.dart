@@ -4,7 +4,13 @@ class UserModel {
   // String? dob;
   // String? description;
   String? fullName;
-  String? userEmail, vehicleBrand, vehicle;
+  String? userEmail,
+      vehicleEngine,
+      vehicleBrand,
+      vehicle,
+      vehicleYear,
+      vehicleModel,
+      zipCode;
   // int? singup_step;
   // List? award;
   // List ? album;
@@ -29,11 +35,16 @@ class UserModel {
       // required this.userType,
       this.vehicleInformation,
       this.password,
+      this.vehicleEngine,
       this.fullName,
       this.userEmail,
       this.vehicle,
+      this.vehicleYear,
       // this.userImage,
       this.vehicleBrand,
+      this.vehicleModel,
+      this.zipCode,
+      // this.vehicleBrand,
       // required this.links,
       this.userPhone});
 
@@ -51,7 +62,11 @@ class UserModel {
     // description = map["description"];
     userPhone = map["userPhone"];
     userEmail = map["userEmail"];
-    // userImage = map["userImage"];
+    vehicle = map["vehicle"];
+    vehicleYear = map["vehicleYear"];
+    vehicleModel = map["vehicleModel"];
+    zipCode = map["zipCode"];
+    vehicleEngine = map["vehicleEngine"];
     // userType = map["userType"];
     // singup_step = map["singupStep"];
   }
@@ -70,7 +85,11 @@ class UserModel {
       "fullName": fullName,
       "userEmail": userEmail,
       "vehicleBrand": "",
-      "vehicle": ""
+      "vehicle": "",
+      "vehicleYear": "",
+      "vehicleModel": "",
+      "vehicleEngine": "",
+      "zipCode": ""
       // "userImage": userImage,
       // "nationality": Nationality,
       // "dob": dob,
