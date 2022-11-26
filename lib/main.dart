@@ -66,40 +66,49 @@ class MyApp extends StatelessWidget {
                   .collection('user')
                   .doc(FirebaseAuth.instance.currentUser!.uid)
                   .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  currentUserData = UserModel.fromMap(snapshot.data);
-                  if (currentUserData.vehicleInformation == false) {
-                    Get.snackbar("Please Fill Your Vehicle Informations", "");
-                    if (currentUserData.vehicle == "") {
-                      print(0);
-                      Get.snackbar("Please select the vehicle", "");
-                      return RequestServices();
-                    } else if (currentUserData.vehicleYear == "") {
-                      print(1);
-                      Get.snackbar("Please select the vehicle Year", "");
-                      return AboutVehicle();
-                    } else if (currentUserData.vehicleBrand == "") {
-                      print(2);
-                      Get.snackbar("Please select the vehicle brand", "");
-                      return ByMake1();
-                    } else if (currentUserData.vehicleModel == "") {
-                      print(3);
-                      Get.snackbar("Please select the vehicle Model", "");
-                      return const ByMake2();
-                    } else if (currentUserData.vehicleEngine == "") {
-                      print(4);
-                      Get.snackbar("Please select the vehicle Engine", "");
-                      return const ByMake3();
-                    } else if (currentUserData.zipCode == "") {
-                      print(5);
-                      Get.snackbar("Please Enter the Zip Code", "");
-                      return const ByMake4();
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: Text("Loading...."));
+                } else if (snapshot.connectionState == ConnectionState.active ||
+                    snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    return const Text('Error');
+                  } else if (snapshot.hasData) {
+                    currentUserData = UserModel.fromMap(snapshot.data);
+                    if (currentUserData.vehicleInformation == false) {
+                      Get.snackbar("Please Fill Your Vehicle Informations", "");
+                      if (currentUserData.vehicle == "") {
+                        print(0);
+                        Get.snackbar("Please select the vehicle", "");
+                        return RequestServices();
+                      } else if (currentUserData.vehicleYear == "") {
+                        print(1);
+                        Get.snackbar("Please select the vehicle Year", "");
+                        return AboutVehicle();
+                      } else if (currentUserData.vehicleBrand == "") {
+                        print(2);
+                        Get.snackbar("Please select the vehicle brand", "");
+                        return ByMake1();
+                      } else if (currentUserData.vehicleModel == "") {
+                        print(3);
+                        Get.snackbar("Please select the vehicle Model", "");
+                        return const ByMake2();
+                      } else if (currentUserData.vehicleEngine == "") {
+                        print(4);
+                        Get.snackbar("Please select the vehicle Engine", "");
+                        return const ByMake3();
+                      } else if (currentUserData.zipCode == "") {
+                        print(5);
+                        Get.snackbar("Please Enter the Zip Code", "");
+                        return const ByMake4();
+                      }
                     }
+                    return Home();
+                  } else {
+                    return Center(child: Text("Loading...."));
                   }
-                  return Home();
-                } else
-                  return Center(child: CircularProgressIndicator());
+                }
+                return Text('State: ${snapshot.connectionState}');
               },
             ),
     );

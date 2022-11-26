@@ -12,14 +12,22 @@ class EditProfile extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
-            onTap: (){
+            onTap: () {
               Navigator.pop(context);
             },
-
-            child: Icon(Icons.arrow_back_ios,color: Color(0xff3C3D3F),)),
-        title: Text("Edit Profile",style: GoogleFonts.roboto(
-          textStyle: TextStyle(color: Color(0xff3C3D3F),fontWeight: FontWeight.w500,fontSize: 24),
-        ),),
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Color(0xff3C3D3F),
+            )),
+        title: Text(
+          "Edit Profile",
+          style: GoogleFonts.roboto(
+            textStyle: TextStyle(
+                color: Color(0xff3C3D3F),
+                fontWeight: FontWeight.w500,
+                fontSize: 24),
+          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
@@ -31,96 +39,138 @@ class EditProfile extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 5,),
+              SizedBox(
+                height: 5,
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 15.0),
                 child: Row(
                   children: [
-                    Text("Change Picture",style: GoogleFonts.roboto(
-                      textStyle: TextStyle(color: Color(0xff777777),fontWeight: FontWeight.w500,fontSize: 17),
-                    ),),
+                    Text(
+                      "Change Picture",
+                      style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            color: Color(0xff777777),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              SizedBox(height: 15,),
+              SizedBox(
+                height: 15,
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 15.0),
                 child: Row(
                   children: [
-                    Image.asset(ConstImages.profilePic,height: 102,),
-                    SizedBox(width: 25,),
-                    Container(height: 51,width: 132,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(80),
-                      color: ConstColors.secondaryColor
+                    Image.asset(
+                      ConstImages.profilePic,
+                      height: 102,
                     ),
+                    SizedBox(
+                      width: 25,
+                    ),
+                    Container(
+                      height: 51,
+                      width: 132,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(80),
+                          color: ConstColors.secondaryColor),
                       child: Center(
-                        child: Text("Change Picture",style: GoogleFonts.roboto(
-                          textStyle: TextStyle(color: Color(0xffffffff),fontWeight: FontWeight.w400,fontSize: 15),
-                        ),),
+                        child: Text(
+                          "Change Picture",
+                          style: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                                color: Color(0xffffffff),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15),
+                          ),
+                        ),
                       ),
                     )
                   ],
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 15.0),
                 child: Row(
                   children: [
-                    Text("Name",style: GoogleFonts.roboto(
-                      textStyle: TextStyle(color: Color(0xff777777),fontWeight: FontWeight.w500,fontSize: 17),
-                    ),),
+                    Text(
+                      "Name",
+                      style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            color: Color(0xff777777),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              SizedBox(height: 11,),
+              SizedBox(
+                height: 11,
+              ),
               Container(
                 height: 52,
                 width: double.infinity,
-                margin: EdgeInsets.only(left: 20,right: 20),
+                margin: EdgeInsets.only(left: 20, right: 20),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(color: Color(0xffEAEAEA)),
-                  color: Colors.white
-                ),
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: Color(0xffEAEAEA)),
+                    color: Colors.white),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15.0),
                     child: TextFormField(
                       cursorColor: Color(0xffEAEAEA),
                       decoration: InputDecoration(
-                        hintText: "Omar faruk",
-                        hintStyle:  GoogleFonts.roboto(
-                          textStyle: TextStyle(color: Color(0xffbbbbbb),fontWeight: FontWeight.w500,fontSize: 17),
-                        ),
-                        border: InputBorder.none
-                      ),
+                          hintText: "Omar faruk",
+                          hintStyle: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                                color: Color(0xffbbbbbb),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17),
+                          ),
+                          border: InputBorder.none),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 25,),
+              SizedBox(
+                height: 25,
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 15.0),
                 child: Row(
                   children: [
-                    Text("About",style: GoogleFonts.roboto(
-                      textStyle: TextStyle(color: Color(0xff777777),fontWeight: FontWeight.w500,fontSize: 17),
-                    ),),
+                    Text(
+                      "About",
+                      style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            color: Color(0xff777777),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              SizedBox(height: 11,),
+              SizedBox(
+                height: 11,
+              ),
               Container(
                 height: 52,
                 width: double.infinity,
-                margin: EdgeInsets.only(left: 20,right: 20),
+                margin: EdgeInsets.only(left: 20, right: 20),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: Color(0xffEAEAEA)),
-                    color: Colors.white
-                ),
+                    color: Colors.white),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15.0),
@@ -128,36 +178,47 @@ class EditProfile extends StatelessWidget {
                       cursorColor: Color(0xffEAEAEA),
                       decoration: InputDecoration(
                           hintText: "About yourself",
-                          hintStyle:  GoogleFonts.roboto(
-                            textStyle: TextStyle(color: Color(0xffbbbbbb),fontWeight: FontWeight.w500,fontSize: 17),
+                          hintStyle: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                                color: Color(0xffbbbbbb),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17),
                           ),
-                          border: InputBorder.none
-                      ),
+                          border: InputBorder.none),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 25,),
+              SizedBox(
+                height: 25,
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 15.0),
                 child: Row(
                   children: [
-                    Text("Email",style: GoogleFonts.roboto(
-                      textStyle: TextStyle(color: Color(0xff777777),fontWeight: FontWeight.w500,fontSize: 17),
-                    ),),
+                    Text(
+                      "Email",
+                      style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            color: Color(0xff777777),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              SizedBox(height: 11,),
+              SizedBox(
+                height: 11,
+              ),
               Container(
                 height: 52,
                 width: double.infinity,
-                margin: EdgeInsets.only(left: 20,right: 20),
+                margin: EdgeInsets.only(left: 20, right: 20),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: Color(0xffEAEAEA)),
-                    color: Colors.white
-                ),
+                    color: Colors.white),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15.0),
@@ -165,36 +226,47 @@ class EditProfile extends StatelessWidget {
                       cursorColor: Color(0xffEAEAEA),
                       decoration: InputDecoration(
                           hintText: "hassan@gmail.com",
-                          hintStyle:  GoogleFonts.roboto(
-                            textStyle: TextStyle(color: Color(0xffbbbbbb),fontWeight: FontWeight.w500,fontSize: 17),
+                          hintStyle: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                                color: Color(0xffbbbbbb),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17),
                           ),
-                          border: InputBorder.none
-                      ),
+                          border: InputBorder.none),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 25,),
+              SizedBox(
+                height: 25,
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 15.0),
                 child: Row(
                   children: [
-                    Text("Phone",style: GoogleFonts.roboto(
-                      textStyle: TextStyle(color: Color(0xff777777),fontWeight: FontWeight.w500,fontSize: 17),
-                    ),),
+                    Text(
+                      "Phone",
+                      style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            color: Color(0xff777777),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              SizedBox(height: 11,),
+              SizedBox(
+                height: 11,
+              ),
               Container(
                 height: 52,
                 width: double.infinity,
-                margin: EdgeInsets.only(left: 20,right: 20),
+                margin: EdgeInsets.only(left: 20, right: 20),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: Color(0xffEAEAEA)),
-                    color: Colors.white
-                ),
+                    color: Colors.white),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15.0),
@@ -202,36 +274,47 @@ class EditProfile extends StatelessWidget {
                       cursorColor: Color(0xffEAEAEA),
                       decoration: InputDecoration(
                           hintText: "+923198540852",
-                          hintStyle:  GoogleFonts.roboto(
-                            textStyle: TextStyle(color: Color(0xffbbbbbb),fontWeight: FontWeight.w500,fontSize: 17),
+                          hintStyle: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                                color: Color(0xffbbbbbb),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17),
                           ),
-                          border: InputBorder.none
-                      ),
+                          border: InputBorder.none),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 25,),
+              SizedBox(
+                height: 25,
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 15.0),
                 child: Row(
                   children: [
-                    Text("Address",style: GoogleFonts.roboto(
-                      textStyle: TextStyle(color: Color(0xff777777),fontWeight: FontWeight.w500,fontSize: 17),
-                    ),),
+                    Text(
+                      "Address",
+                      style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            color: Color(0xff777777),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              SizedBox(height: 11,),
+              SizedBox(
+                height: 11,
+              ),
               Container(
                 height: 52,
                 width: double.infinity,
-                margin: EdgeInsets.only(left: 20,right: 20),
+                margin: EdgeInsets.only(left: 20, right: 20),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: Color(0xffEAEAEA)),
-                    color: Colors.white
-                ),
+                    color: Colors.white),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15.0),
@@ -239,29 +322,41 @@ class EditProfile extends StatelessWidget {
                       cursorColor: Color(0xffEAEAEA),
                       decoration: InputDecoration(
                           hintText: "United Kingdom (12km away)",
-                          hintStyle:  GoogleFonts.roboto(
-                            textStyle: TextStyle(color: Color(0xffbbbbbb),fontWeight: FontWeight.w500,fontSize: 17),
+                          hintStyle: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                                color: Color(0xffbbbbbb),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17),
                           ),
-                          border: InputBorder.none
-                      ),
+                          border: InputBorder.none),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 25,),
+              SizedBox(
+                height: 25,
+              ),
               Container(
                 height: 350,
                 width: double.infinity,
-                margin: EdgeInsets.only(left: 20,right: 20),
+                margin: EdgeInsets.only(left: 20, right: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   color: ConstColors.secondaryColor,
                 ),
                 child: Column(
                   children: [
-                    SizedBox(height: 25,),
-                    Image.asset("assets/images/carIcon.png",height: 98,color: Colors.white,),
-                    SizedBox(height: 30,),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Image.asset(
+                      "assets/images/carIcon.png",
+                      height: 98,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -270,31 +365,45 @@ class EditProfile extends StatelessWidget {
                           width: 90,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
-                              color: Colors.white54
-                          ),
+                              color: Colors.white54),
                           child: Center(
-                            child: Text("Year : 02",style: GoogleFonts.quicksand(
-                              textStyle: TextStyle(color: Color(0xffffffff),fontWeight: FontWeight.w600,fontSize: 13),
-                            ),),
+                            child: Text(
+                              "Year : 02",
+                              style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                                    color: Color(0xffffffff),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13),
+                              ),
+                            ),
                           ),
                         ),
-                        SizedBox(width: 10,),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Container(
                           height: 26,
                           width: 111,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
-                              color: Colors.white54
-                          ),
+                              color: Colors.white54),
                           child: Center(
-                            child: Text("Model : Acura",style: GoogleFonts.quicksand(
-                              textStyle: TextStyle(color: Color(0xffffffff),fontWeight: FontWeight.w600,fontSize: 13),
-                            ),),
+                            child: Text(
+                              "Model : Acura",
+                              style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                                    color: Color(0xffffffff),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13),
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 12,),
+                    SizedBox(
+                      height: 12,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -303,31 +412,45 @@ class EditProfile extends StatelessWidget {
                           width: 119,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
-                              color: Colors.white54
-                          ),
+                              color: Colors.white54),
                           child: Center(
-                            child: Text("Brand : Acura",style: GoogleFonts.quicksand(
-                              textStyle: TextStyle(color: Color(0xffffffff),fontWeight: FontWeight.w600,fontSize: 13),
-                            ),),
+                            child: Text(
+                              "Brand : Acura",
+                              style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                                    color: Color(0xffffffff),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13),
+                              ),
+                            ),
                           ),
                         ),
-                        SizedBox(width: 10,),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Container(
                           height: 26,
                           width: 139,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
-                              color: Colors.white54
-                          ),
+                              color: Colors.white54),
                           child: Center(
-                            child: Text("Sub model : Acura",style: GoogleFonts.quicksand(
-                              textStyle: TextStyle(color: Color(0xffffffff),fontWeight: FontWeight.w600,fontSize: 13),
-                            ),),
+                            child: Text(
+                              "Sub model : Acura",
+                              style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                                    color: Color(0xffffffff),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13),
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 12,),
+                    SizedBox(
+                      height: 12,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -336,12 +459,17 @@ class EditProfile extends StatelessWidget {
                           width: 139,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
-                              color: Colors.white54
-                          ),
+                              color: Colors.white54),
                           child: Center(
-                            child: Text("Sub model : Acura",style: GoogleFonts.quicksand(
-                              textStyle: TextStyle(color: Color(0xffffffff),fontWeight: FontWeight.w600,fontSize: 13),
-                            ),),
+                            child: Text(
+                              "Sub model : Acura",
+                              style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                                    color: Color(0xffffffff),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13),
+                              ),
+                            ),
                           ),
                         ),
                         // SizedBox(width: 10,),
@@ -350,17 +478,25 @@ class EditProfile extends StatelessWidget {
                           width: 160,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
-                              color: Colors.white54
-                          ),
+                              color: Colors.white54),
                           child: Center(
-                            child: Text("Transmicion Type : Acura",style: GoogleFonts.quicksand(
-                              textStyle: TextStyle(color: Color(0xffffffff),fontWeight: FontWeight.w600,fontSize: 13,letterSpacing: -0.3),
-                            ),),
+                            child: Text(
+                              "Transmicion Type : Acura",
+                              style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                                    color: Color(0xffffffff),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13,
+                                    letterSpacing: -0.3),
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 12,),
+                    SizedBox(
+                      height: 12,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -369,31 +505,45 @@ class EditProfile extends StatelessWidget {
                           width: 200,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
-                              color: Colors.white54
-                          ),
+                              color: Colors.white54),
                           child: Center(
-                            child: Text("Engine Liters or Electric : Acura",style: GoogleFonts.quicksand(
-                              textStyle: TextStyle(color: Color(0xffffffff),fontWeight: FontWeight.w600,fontSize: 13),
-                            ),),
+                            child: Text(
+                              "Engine Liters or Electric : Acura",
+                              style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                                    color: Color(0xffffffff),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13),
+                              ),
+                            ),
                           ),
                         ),
-                        SizedBox(width: 10,),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Container(
                           height: 26,
                           width: 93,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
-                              color: Colors.white54
-                          ),
+                              color: Colors.white54),
                           child: Center(
-                            child: Text("Vn : Acura",style: GoogleFonts.quicksand(
-                              textStyle: TextStyle(color: Color(0xffffffff),fontWeight: FontWeight.w600,fontSize: 13),
-                            ),),
+                            child: Text(
+                              "Vn : Acura",
+                              style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                                    color: Color(0xffffffff),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13),
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 12,),
+                    SizedBox(
+                      height: 12,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -402,12 +552,17 @@ class EditProfile extends StatelessWidget {
                           width: 279,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
-                              color: Colors.white54
-                          ),
+                              color: Colors.white54),
                           child: Center(
-                            child: Text("Turbo,non turbo or super charge : Acura",style: GoogleFonts.quicksand(
-                              textStyle: TextStyle(color: Color(0xffffffff),fontWeight: FontWeight.w600,fontSize: 13),
-                            ),),
+                            child: Text(
+                              "Turbo,non turbo or super charge : Acura",
+                              style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                                    color: Color(0xffffffff),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13),
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -415,27 +570,37 @@ class EditProfile extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 25,),
+              SizedBox(
+                height: 25,
+              ),
               InkWell(
-                onTap: (){
+                onTap: () {
                   Navigator.pop(context);
                 },
                 child: Container(
                   height: 50,
                   width: double.infinity,
-                  margin: EdgeInsets.only(left: 30,right: 30),
+                  margin: EdgeInsets.only(left: 30, right: 30),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
                     color: Color(0xffFF7D01),
                   ),
                   child: Center(
-                    child: Text("Update",style: GoogleFonts.roboto(
-                      textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 17),
-                    ),),
+                    child: Text(
+                      "Update",
+                      style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17),
+                      ),
+                    ),
                   ),
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
             ],
           ),
         ),
