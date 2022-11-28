@@ -29,7 +29,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool obsecurePassword = false;
+  bool obsecurePassword = true;
 
   String countryCode = '';
 

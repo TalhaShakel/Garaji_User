@@ -14,7 +14,7 @@ class UserModel {
   // int? singup_step;
   // List? award;
   // List ? album;
-  // String? userImage;
+  String? userImage;
   String? userPhone;
   String? password;
   // String? userType;
@@ -40,7 +40,7 @@ class UserModel {
       this.userEmail,
       this.vehicle,
       this.vehicleYear,
-      // this.userImage,
+      this.userImage,
       this.vehicleBrand,
       this.vehicleModel,
       this.zipCode,
@@ -57,6 +57,7 @@ class UserModel {
     uid = map["uid"];
     // Nationality = map["nationality"];
     // dob = map["dob"];
+    userImage = map["profilePic"];
     fullName = map["fullName"];
     vehicleBrand = map["vehicleBrand"];
     // description = map["description"];
@@ -89,8 +90,9 @@ class UserModel {
       "vehicleYear": "",
       "vehicleModel": "",
       "vehicleEngine": "",
-      "zipCode": ""
-      // "userImage": userImage,
+      "zipCode": "",
+      "profilePic":
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
       // "nationality": Nationality,
       // "dob": dob,
       // "description": description

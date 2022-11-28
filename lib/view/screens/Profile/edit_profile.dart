@@ -1,11 +1,26 @@
+import 'dart:typed_data';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:garaji_user_app/Services/service.dart';
 import 'package:garaji_user_app/constants/const_colors.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../../../Models/userModels.dart';
 import '../../../constants/const_images.dart';
 
-class EditProfile extends StatelessWidget {
+class EditProfile extends StatefulWidget {
+  EditProfile({Key? key}) : super(key: key);
+
+  @override
+  State<EditProfile> createState() => _EditProfileState();
+}
+
+class _EditProfileState extends State<EditProfile> {
   var about = TextEditingController(text: currentUserData.fullName.toString());
 
   var email = TextEditingController(text: currentUserData.userEmail.toString());
@@ -13,11 +28,13 @@ class EditProfile extends StatelessWidget {
   var phone = TextEditingController(text: currentUserData.userPhone.toString());
 
   var address = TextEditingController(text: currentUserData.zipCode.toString());
+
   var name = TextEditingController(text: currentUserData.fullName.toString());
 
   var year = TextEditingController(text: "${currentUserData.vehicleYear}");
 
   var model = TextEditingController(text: "${currentUserData.vehicleModel}");
+
   var vehicleEngine =
       TextEditingController(text: "${currentUserData.vehicleEngine}");
 
@@ -26,7 +43,27 @@ class EditProfile extends StatelessWidget {
   var vehicleBrand =
       TextEditingController(text: " ${currentUserData.vehicleBrand}");
 
-  EditProfile({Key? key}) : super(key: key);
+  Uint8List? image;
+  upload_profilepic() async {
+    // r++;
+    if (image != null) {
+      print(1);
+      UploadTask uploadTask = FirebaseStorage.instance
+          .ref("profile")
+          .child(currentUserData.uid.toString())
+          .putData(image!);
+      // currentUserData.award.add(await uploadTask.snapshot.ref.getDownloadURL());
+      // print(await uploadTask.snapshot.ref.getDownloadURL());
+      var awardlink = (await uploadTask.snapshot.ref.getDownloadURL());
+      print(2);
+
+      await firestore_update(
+          "user", "${currentUserData.uid}", {"profilePic": awardlink});
+      print(3);
+    } else {
+      print(null);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,27 +123,63 @@ class EditProfile extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 15.0),
                 child: Row(
                   children: [
-                    Image.asset(
-                      ConstImages.profilePic,
-                      height: 102,
-                    ),
+                    image == null
+                        ? CircleAvatar(
+                            radius: 50,
+                            backgroundColor: Colors.transparent,
+                            child: ClipOval(
+                              child: Image.network(
+                                currentUserData.userImage,
+                                fit: BoxFit.cover,
+                                width: 102,
+                                height: 102,
+                              ),
+                            ))
+                        : CircleAvatar(
+                            radius: 50,
+                            backgroundColor: Colors.transparent,
+                            child: ClipOval(
+                              child: Image.memory(
+                                image!,
+                                fit: BoxFit.cover,
+                                width: 102,
+                                height: 102,
+                              ),
+                            ),
+                          ),
                     SizedBox(
                       width: 25,
                     ),
-                    Container(
-                      height: 51,
-                      width: 132,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(80),
-                          color: ConstColors.secondaryColor),
-                      child: Center(
-                        child: Text(
-                          "Change Picture",
-                          style: GoogleFonts.roboto(
-                            textStyle: TextStyle(
-                                color: Color(0xffffffff),
-                                fontWeight: FontWeight.w400,
-                                fontSize: 15),
+                    GestureDetector(
+                      onTap: () async {
+                        EasyLoading.show();
+                        var im = await pickImage(ImageSource.gallery);
+
+                        if (im != null) {
+                          image = im;
+                        }
+                        print(image);
+                        setState(() {});
+
+                        EasyLoading.dismiss();
+
+                        // }
+                      },
+                      child: Container(
+                        height: 51,
+                        width: 132,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(80),
+                            color: ConstColors.secondaryColor),
+                        child: Center(
+                          child: Text(
+                            "Change Picture",
+                            style: GoogleFonts.roboto(
+                              textStyle: TextStyle(
+                                  color: Color(0xffffffff),
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 15),
+                            ),
                           ),
                         ),
                       ),
@@ -691,8 +764,37 @@ class EditProfile extends StatelessWidget {
                 height: 25,
               ),
               InkWell(
-                onTap: () {
-                  Navigator.pop(context);
+                onTap: () async {
+                  try {
+                    EasyLoading.show();
+                    await firestore_update("user", currentUserData.uid, {
+                      "fullName": name.text.toString().trim(),
+                      "submodel": model.text.toString().trim(),
+                      "userEmail": email.text.toString().trim(),
+                      "userPhone": phone.text.toString().trim(),
+                      "vehicle": vehicle.text.toString().trim(),
+                      "vehicleBrand": vehicleBrand.text.toString().trim(),
+                      "vehicleEngine": vehicleEngine.text.toString().trim(),
+                      "vehicleModel": model.text.toString().trim(),
+                      "vehicleYear": year.text.toString().trim(),
+                      "zipCode": address.text.toString().trim(),
+                    });
+                    await upload_profilepic();
+                    var data = await firestore_get(
+                        "user", currentUserData.uid.toString());
+                    currentUserData = UserModel.fromMap(data);
+                    setState(() {});
+
+                    EasyLoading.dismiss();
+
+                    print(data);
+                  } on FirebaseException catch (e) {
+                    EasyLoading.dismiss();
+                    print(e);
+                    Get.snackbar("$e", "");
+                  }
+
+                  // Navigator.pop(context);
                 },
                 child: Container(
                   height: 50,

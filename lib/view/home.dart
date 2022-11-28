@@ -44,7 +44,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MyProfile()));
               },
-              child: Image.asset(ConstImages.profilePic)),
+              child: FittedBox(
+                child: CircleAvatar(
+                    radius: 50,
+                    backgroundColor: Colors.transparent,
+                    child: ClipOval(
+                      child: Image.network(
+                        currentUserData.userImage,
+                        fit: BoxFit.cover,
+                        width: 102,
+                        height: 102,
+                      ),
+                    )),
+              )),
         ),
         title: GestureDetector(
           onTap: () {

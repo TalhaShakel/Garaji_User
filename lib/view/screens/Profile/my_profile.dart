@@ -79,12 +79,18 @@ class MyProfile extends StatelessWidget {
                     Align(
                         alignment: Alignment.center,
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 110.0),
-                          child: Image.asset(
-                            ConstImages.profilePic,
-                            height: 137,
-                          ),
-                        )),
+                            padding: const EdgeInsets.only(top: 110.0),
+                            child: CircleAvatar(
+                                radius: 50,
+                                backgroundColor: Colors.transparent,
+                                child: ClipOval(
+                                  child: Image.network(
+                                    currentUserData.userImage,
+                                    fit: BoxFit.cover,
+                                    width: 102,
+                                    height: 102,
+                                  ),
+                                )))),
                   ],
                 ),
                 SizedBox(

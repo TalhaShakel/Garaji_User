@@ -48,9 +48,18 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 },
                 child: Row(
                   children: [
-                    Image.asset(
-                      ConstImages.profilePic,
-                      height: 70,
+                    FittedBox(
+                      child: CircleAvatar(
+                          radius: 50,
+                          backgroundColor: Colors.transparent,
+                          child: ClipOval(
+                            child: Image.network(
+                              currentUserData.userImage,
+                              fit: BoxFit.cover,
+                              width: 102,
+                              height: 102,
+                            ),
+                          )),
                     ),
                     SizedBox(
                       width: 15,

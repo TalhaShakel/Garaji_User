@@ -21,7 +21,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  bool obsecurePassword = false;
+  bool obsecurePassword = true;
   String countryCode = '';
   var name = TextEditingController();
   var phone = TextEditingController();
@@ -302,19 +302,19 @@ class _SignUpState extends State<SignUp> {
                                       credential.user!.uid, newUser.toMap());
                                   EasyLoading.dismiss();
                                   print("New User Created!");
-                                  UserCredential user =
-                                      await fAuth.signInWithEmailAndPassword(
-                                          email: newUser.userEmail
-                                              .toString()
-                                              .trim(),
-                                          password: newUser.password
-                                              .toString()
-                                              .trim());
-                                  var document = await firestore_get(
-                                      "user", "${credential.user!.uid}");
-                                  UserModel.fromMap(
-                                      document.data() as Map<String, dynamic>);
-                                  Get.to(() => Home());
+                                  // UserCredential user =
+                                  //     await fAuth.signInWithEmailAndPassword(
+                                  //         email: newUser.userEmail
+                                  //             .toString()
+                                  //             .trim(),
+                                  //         password: newUser.password
+                                  //             .toString()
+                                  //             .trim());
+                                  // var document = await firestore_get(
+                                  //     "user", "${credential.user!.uid}");
+                                  // currentUserData = UserModel.fromMap(
+                                  //     document.data() as Map<String, dynamic>);
+                                  Get.to(() => LoginPage());
                                 } on FirebaseException catch (e) {
                                   print(e);
                                   Get.snackbar("${e.message}", "");

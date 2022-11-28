@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:garaji_user_app/Services/service.dart';
 import 'package:garaji_user_app/constants/const_images.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -28,50 +29,73 @@ class _ChatsState extends State<Chats> {
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
-                        SizedBox(height: 5,),
+                        SizedBox(
+                          height: 5,
+                        ),
                         InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatScreen()));
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ChatScreen()));
                           },
                           child: Container(
                               height: 87,
                               width: double.infinity,
                               color: Colors.white,
                               child: ListTile(
-                                leading:     Container(
-                                    height:32,
+                                leading: Container(
+                                    height: 32,
                                     width: 32,
                                     child: Image.asset(ConstImages.profilePic)),
-                                title: Text("Jacod Henderson",style: TextStyle(fontWeight: FontWeight.w600),),
-
+                                title: Text(
+                                  "Jacod Henderson",
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
                                 subtitle: Padding(
                                   padding: const EdgeInsets.only(top: 5),
-                                  child: Text("Nam quam nuch, blandit vei mengrobe it’s okay",
-                                    maxLines: 1,style: TextStyle(fontSize: 15,color: Color(0xff777777)),),
+                                  child: Text(
+                                    "Nam quam nuch, blandit vei mengrobe it’s okay",
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                        fontSize: 15, color: Color(0xff777777)),
+                                  ),
                                 ),
-                                trailing: Text("10:36 Pm",style: GoogleFonts.nunito(fontWeight: FontWeight.w600),),
-                              )
-                          ),
+                                trailing: Text(
+                                  "10:36 Pm",
+                                  style: GoogleFonts.nunito(
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              )),
                         ),
                         Container(
                             height: 87,
                             width: double.infinity,
                             color: Color(0xffF8F8F8),
                             child: ListTile(
-                              leading:     Container(
-                                  height:32,
+                              leading: Container(
+                                  height: 32,
                                   width: 32,
                                   child: Image.asset(ConstImages.profilePic)),
-                              title: Text("Jacod Henderson",style: TextStyle(fontWeight: FontWeight.w600),),
-
+                              title: Text(
+                                "Jacod Henderson",
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                              ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.only(top: 5),
-                                child: Text("Nam quam nuch, blandit vei mengrobe it’s okay",
-                                  maxLines: 1,style: TextStyle(fontSize: 15,color: Color(0xff777777)),),
+                                child: Text(
+                                  "Nam quam nuch, blandit vei mengrobe it’s okay",
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                      fontSize: 15, color: Color(0xff777777)),
+                                ),
                               ),
-                              trailing: Text("10:36 Pm",style: GoogleFonts.nunito(fontWeight: FontWeight.w600),),
-                            )
-                        ),
+                              trailing: Text(
+                                "10:36 Pm",
+                                style: GoogleFonts.nunito(
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            )),
                       ],
                     );
                   }),
@@ -88,7 +112,7 @@ class _ChatsState extends State<Chats> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 30, left: 15,bottom: 5),
+              padding: const EdgeInsets.only(top: 30, left: 15, bottom: 5),
               child: Row(
                 children: [
                   Container(
@@ -97,17 +121,22 @@ class _ChatsState extends State<Chats> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                     ),
-                    child: Image.asset(
-                        ConstImages.profilePic,
-                      fit: BoxFit.fill,
-                    ),
+                    child: CircleAvatar(
+                        radius: 50,
+                        backgroundColor: Colors.transparent,
+                        child: ClipOval(
+                          child: Image.network(
+                            currentUserData.userImage,
+                            fit: BoxFit.cover,
+                            width: 102,
+                            height: 102,
+                          ),
+                        )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 10,left: 25
-                    ),
+                    padding: const EdgeInsets.only(bottom: 10, left: 25),
                     child: Text(
-                      "Omer Faruk",
+                      "${currentUserData.fullName}",
                       style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w500,
