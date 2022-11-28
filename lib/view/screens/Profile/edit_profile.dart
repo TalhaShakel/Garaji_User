@@ -18,8 +18,13 @@ class EditProfile extends StatelessWidget {
   var year = TextEditingController(text: "${currentUserData.vehicleYear}");
 
   var model = TextEditingController(text: "${currentUserData.vehicleModel}");
+  var vehicleEngine =
+      TextEditingController(text: "${currentUserData.vehicleEngine}");
 
   var vehicle = TextEditingController(text: "${currentUserData.vehicleBrand}");
+
+  var vehicleBrand =
+      TextEditingController(text: " ${currentUserData.vehicleBrand}");
 
   EditProfile({Key? key}) : super(key: key);
 
@@ -556,28 +561,26 @@ class EditProfile extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
                               color: Colors.white54),
-                          child: FittedBox(
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Transmicion Type:",
-                                  style: GoogleFonts.quicksand(
-                                    textStyle: TextStyle(
-                                        color: Color(0xffffffff),
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 13,
-                                        letterSpacing: -0.3),
-                                  ),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Transmicion Type:",
+                                style: GoogleFonts.quicksand(
+                                  textStyle: TextStyle(
+                                      color: Color(0xffffffff),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 13,
+                                      letterSpacing: -0.3),
                                 ),
-                                Container(
-                                    width: 50,
-                                    child: TextFormField(
-                                      controller: model,
-                                      // decoration: in,
-                                      style: TextStyle(color: Colors.white),
-                                    ))
-                              ],
-                            ),
+                              ),
+                              Container(
+                                  width: 50,
+                                  child: TextFormField(
+                                    controller: model,
+                                    // decoration: in,
+                                    style: TextStyle(color: Colors.white),
+                                  ))
+                            ],
                           ),
                         ),
                       ],
@@ -595,14 +598,27 @@ class EditProfile extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4),
                               color: Colors.white54),
                           child: Center(
-                            child: Text(
-                              "Engine Liters or Electric : ${currentUserData.vehicleEngine}",
-                              style: GoogleFonts.quicksand(
-                                textStyle: TextStyle(
-                                    color: Color(0xffffffff),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 13),
-                              ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Engine Liters or Electric: ",
+                                  style: GoogleFonts.quicksand(
+                                    textStyle: TextStyle(
+                                        color: Color(0xffffffff),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 13),
+                                  ),
+                                ),
+                                FittedBox(
+                                  child: Container(
+                                      width: 60,
+                                      child: TextFormField(
+                                        controller: vehicleEngine,
+                                        // decoration: in,
+                                        style: TextStyle(color: Colors.white),
+                                      )),
+                                )
+                              ],
                             ),
                           ),
                         ),
@@ -616,14 +632,27 @@ class EditProfile extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4),
                               color: Colors.white54),
                           child: Center(
-                            child: Text(
-                              "Vn : ${currentUserData.vehicleBrand}",
-                              style: GoogleFonts.quicksand(
-                                textStyle: TextStyle(
-                                    color: Color(0xffffffff),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 13),
-                              ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Vn :",
+                                  style: GoogleFonts.quicksand(
+                                    textStyle: TextStyle(
+                                        color: Color(0xffffffff),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 13),
+                                  ),
+                                ),
+                                FittedBox(
+                                  child: Container(
+                                      width: 70,
+                                      child: TextFormField(
+                                        controller: vehicleBrand,
+                                        // decoration: in,
+                                        style: TextStyle(color: Colors.white),
+                                      )),
+                                )
+                              ],
                             ),
                           ),
                         ),

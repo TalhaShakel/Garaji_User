@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:garaji_user_app/Models/userModels.dart';
 import 'package:garaji_user_app/Services/service.dart';
@@ -59,12 +60,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: fAuth.currentUser?.uid.toString() == "" ? SplashScreen() : Home(),
-      home: fAuth.currentUser?.uid.toString() == ""
+      home: fAuth.currentUser?.uid == null
           ? const SplashScreen()
           : StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('user')
-                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .doc(FirebaseAuth.instance.currentUser?.uid)
                   .snapshots(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -73,7 +74,7 @@ class MyApp extends StatelessWidget {
                     snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasError) {
                     return const Text('Error');
-                  } else if (snapshot.hasData) {
+                  } else if (snapshot.hasData && snapshot.data!.exists) {
                     currentUserData = UserModel.fromMap(snapshot.data);
                     if (currentUserData.vehicleInformation == false) {
                       Get.snackbar("Please Fill Your Vehicle Informations", "");
@@ -105,7 +106,24 @@ class MyApp extends StatelessWidget {
                     }
                     return Home();
                   } else {
-                    return Center(child: Text("Loading...."));
+                    return Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("Loading...."),
+                        ),
+                        CircularProgressIndicator(),
+                        TextButton(
+                            onPressed: () {
+                              FirebaseAuth.instance.signOut();
+                              SystemNavigator.pop();
+                            },
+                            child: Text("Exit"))
+                        // ElevatedButton(onPressed: () {}, child: Text("Exit"))
+                      ],
+                    ));
                   }
                 }
                 return Text('State: ${snapshot.connectionState}');
