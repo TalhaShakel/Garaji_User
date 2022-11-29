@@ -38,7 +38,7 @@ class _EditProfileState extends State<EditProfile> {
   var vehicleEngine =
       TextEditingController(text: "${currentUserData.vehicleEngine}");
 
-  var vehicle = TextEditingController(text: "${currentUserData.vehicleBrand}");
+  var vehicle = TextEditingController(text: "${currentUserData.vehicle}");
 
   var vehicleBrand =
       TextEditingController(text: " ${currentUserData.vehicleBrand}");
@@ -548,7 +548,7 @@ class _EditProfileState extends State<EditProfile> {
                                   ),
                                 ),
                                 Container(
-                                    width: 50,
+                                    width: 40,
                                     child: TextFormField(
                                       controller: vehicle,
                                       // decoration: in,
@@ -791,7 +791,7 @@ class _EditProfileState extends State<EditProfile> {
                   } on FirebaseException catch (e) {
                     EasyLoading.dismiss();
                     print(e);
-                    Get.snackbar("$e", "");
+                    Get.snackbar("${e.message}", "");
                   }
 
                   // Navigator.pop(context);

@@ -1,11 +1,14 @@
 import 'package:custom_check_box/custom_check_box.dart';
 import 'package:expandable/expandable.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:garaji_user_app/Models/userModels.dart';
 import 'package:garaji_user_app/components/drawer_screen.dart';
 import 'package:garaji_user_app/view/screens/Profile/my_profile.dart';
 import 'package:garaji_user_app/view/screens/notifications.dart';
 import 'package:garaji_user_app/view/screens/technician_profile.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -26,6 +29,26 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   bool isVisible = true;
   double _value = 40.0;
   bool medicine = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
+  getdata() async {
+    try {
+      EasyLoading.show();
+      var data = await firestore_get("user", currentUserData.uid.toString());
+      UserModel userdata =
+          UserModel.fromMap(data.data() as Map<String, dynamic>);
+      currentUserData = userdata;
+      EasyLoading.dismiss();
+    } on FirebaseException catch (e) {
+      print(e);
+      Get.snackbar("${e.message}", "");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

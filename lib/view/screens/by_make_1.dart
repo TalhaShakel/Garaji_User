@@ -70,10 +70,37 @@ class _ByMake1State extends State<ByMake1> {
               SizedBox(
                 height: 40,
               ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Image.asset('assets/images/cars.png'),
-              ),
+              Container(
+                  height: 116,
+                  width: double.infinity,
+                  margin: EdgeInsets.only(left: 20, right: 20),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xffF1F1F1),
+                      border: Border.all(color: Color(0xffEAEAEA))),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Image.asset(
+                        "assets/images/carLogo.png",
+                        height: 30,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        "${currentUserData.vehicle}",
+                        style: GoogleFonts.roboto(
+                          textStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17),
+                        ),
+                      ),
+                    ],
+                  )),
               SizedBox(
                 height: 50,
               ),
@@ -160,9 +187,9 @@ class _ByMake1State extends State<ByMake1> {
                       EasyLoading.show();
                       firestore_update("user", currentUserData.uid,
                           {"vehicleBrand": defaultvalue2});
+                      EasyLoading.dismiss();
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => ByMake2()));
-                      EasyLoading.dismiss();
                     } on FirebaseException catch (e) {
                       EasyLoading.dismiss();
                       print(e);

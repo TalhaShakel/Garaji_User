@@ -282,7 +282,7 @@ class MyProfile extends StatelessWidget {
                                 color: Colors.white54),
                             child: Center(
                               child: Text(
-                                "Brand : ${currentUserData.vehicleYear}",
+                                "Brand : ${currentUserData.vehicle}",
                                 style: GoogleFonts.quicksand(
                                   textStyle: TextStyle(
                                       color: Color(0xffffffff),
