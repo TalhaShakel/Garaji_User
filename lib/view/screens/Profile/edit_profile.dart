@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:garaji_user_app/Services/service.dart';
 import 'package:garaji_user_app/constants/const_colors.dart';
+import 'package:garaji_user_app/view/home.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -783,7 +784,8 @@ class _EditProfileState extends State<EditProfile> {
                     var data = await firestore_get(
                         "user", currentUserData.uid.toString());
                     currentUserData = UserModel.fromMap(data);
-                    setState(() {});
+                    Get.appUpdate();
+                    Get.to(() => Home());
 
                     EasyLoading.dismiss();
 

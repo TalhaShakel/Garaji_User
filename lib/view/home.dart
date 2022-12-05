@@ -162,6 +162,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            // EasyLoading.show();
+                            Get.snackbar(
+                                "Work on this Module will be after the Service app becomes. so that's why here dummy data is shown.",
+                                "",
+                                duration: Duration(seconds: 5),
+                                colorText: Colors.white);
+                            // EasyLoading.dismiss();
                             showModalBottomSheet(
                                 context: context,
                                 backgroundColor: Colors.white,
