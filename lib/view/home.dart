@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:garaji_user_app/Models/userModels.dart';
 import 'package:garaji_user_app/components/drawer_screen.dart';
+import 'package:garaji_user_app/main.dart';
 import 'package:garaji_user_app/view/screens/Profile/my_profile.dart';
 import 'package:garaji_user_app/view/screens/notifications.dart';
 import 'package:garaji_user_app/view/screens/technician_profile.dart';
@@ -168,6 +169,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                 "",
                                 duration: Duration(seconds: 5),
                                 colorText: Colors.white);
+                            ssnack(
+                                "Work on this Module will be after the Service app becomes. so that's why here dummy data is shown.");
                             // EasyLoading.dismiss();
                             showModalBottomSheet(
                                 context: context,

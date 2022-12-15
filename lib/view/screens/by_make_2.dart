@@ -18,7 +18,7 @@ class ByMake2 extends StatefulWidget {
 }
 
 class _ByMake2State extends State<ByMake2> {
-  String defaultvalue2 = "";
+  TextEditingController defaultvalue2 = TextEditingController();
   List dropDownlistData2 = [
     {"title": "ILX", "value": "1 Year Ticket"},
     {"title": "MDX", "value": "1 Week Ticket"},
@@ -137,11 +137,11 @@ class _ByMake2State extends State<ByMake2> {
                         iconEnabledColor: Color(0xff8B9EB0),
                         isExpanded: true,
                         isDense: true,
-                        value: defaultvalue2,
+                        value: defaultvalue2.text.trim().toString(),
                         onChanged: (value) {
                           setState(() {
                             print("selected value $value");
-                            defaultvalue2 = value!;
+                            defaultvalue2.text = value!;
                           });
                         },
                         items: [
@@ -177,15 +177,35 @@ class _ByMake2State extends State<ByMake2> {
             SizedBox(
               height: 30,
             ),
+            Container(
+              height: 50,
+              width: double.infinity,
+              margin: EdgeInsets.only(left: 20, right: 20),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(80),
+                  color: Color(0xffEAEAEA)),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: TextFormField(
+                  controller: defaultvalue2,
+                  decoration: InputDecoration(
+                    hintText: "Please Slect",
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
             InkWell(
               onTap: () {
-                if (defaultvalue2 == "") {
+                if (defaultvalue2.text.trim().toString() == "") {
                   Get.snackbar("Please Select The Vehicle's make", "");
                 } else {
                   try {
                     EasyLoading.show();
                     firestore_update("user", currentUserData.uid,
-                        {"vehicleModel": defaultvalue2});
+                        {"vehicleModel": defaultvalue2.text.trim().toString()});
                     EasyLoading.dismiss();
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => ByMake3()));

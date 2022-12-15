@@ -16,7 +16,7 @@ class ByMake3 extends StatefulWidget {
 }
 
 class _ByMake3State extends State<ByMake3> {
-  String defaultvalue2 = "";
+  TextEditingController defaultvalue2 = TextEditingController();
   List dropDownlistData2 = [
     {"title": "3.OL V6 24v", "value": "1 Year Ticket"},
     {"title": "3.5L V6 24v", "value": "1 Week Ticket"},
@@ -131,11 +131,11 @@ class _ByMake3State extends State<ByMake3> {
                         iconEnabledColor: Color(0xff8B9EB0),
                         isExpanded: true,
                         isDense: true,
-                        value: defaultvalue2,
+                        value: defaultvalue2.text.trim().toString(),
                         onChanged: (value) {
                           setState(() {
                             print("selected value $value");
-                            defaultvalue2 = value!;
+                            defaultvalue2.text = value!;
                           });
                         },
                         items: [
@@ -171,15 +171,36 @@ class _ByMake3State extends State<ByMake3> {
             SizedBox(
               height: 30,
             ),
+            Container(
+              height: 50,
+              width: double.infinity,
+              margin: EdgeInsets.only(left: 20, right: 20),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(80),
+                  color: Color(0xffEAEAEA)),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: TextFormField(
+                  controller: defaultvalue2,
+                  decoration: InputDecoration(
+                    hintText: "Please Slect",
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
             InkWell(
               onTap: () {
-                if (defaultvalue2 == "") {
+                if (defaultvalue2.text.trim().toString() == "") {
                   Get.snackbar("Please Select The vehicle’s engine", "");
                 } else {
                   try {
                     EasyLoading.show();
-                    firestore_update("user", currentUserData.uid,
-                        {"vehicleEngine": defaultvalue2});
+                    firestore_update("user", currentUserData.uid, {
+                      "vehicleEngine": defaultvalue2.text.trim().toString()
+                    });
                     EasyLoading.dismiss();
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => ByMake4()));
