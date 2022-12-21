@@ -146,13 +146,13 @@ class _ByMakeState extends State<ByMake> {
             height: 30,
           ),
           InkWell(
-            onTap: () {
+            onTap: () async {
               if (defaultvalue2 == "") {
                 Get.snackbar("Please Select The Vehicle Year", "");
               } else {
                 try {
                   EasyLoading.show();
-                  firestore_update("user", currentUserData.uid,
+                  await firestore_update("user", currentUserData.uid,
                       {"vehicleYear": defaultvalue2.toString()});
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => ByMake1()));

@@ -316,6 +316,7 @@ class _SignUpState extends State<SignUp> {
                                   //     document.data() as Map<String, dynamic>);
                                   Get.to(() => LoginPage());
                                 } on FirebaseException catch (e) {
+                                  EasyLoading.dismiss();
                                   print(e);
                                   Get.snackbar("${e.message}", "");
                                 }

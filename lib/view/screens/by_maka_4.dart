@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:garaji_user_app/Models/userModels.dart';
 import 'package:garaji_user_app/components/bottom_bar.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -184,16 +185,23 @@ class _ByMake4State extends State<ByMake4> {
                 height: 30,
               ),
               InkWell(
-                onTap: () {
+                onTap: () async {
                   if (zipCode.text.toString().trim() == "") {
                     Get.snackbar("Please Enter The ZipCode", "");
                   } else {
                     try {
                       EasyLoading.show();
-                      firestore_update("user", currentUserData.uid, {
+                      await firestore_update("user", currentUserData.uid, {
                         "zipCode": zipCode.text.toString().trim(),
                         "vehicleInformation": true
                       });
+                      var document = await firestore_get(
+                          "user", "${fAuth.currentUser!.uid}");
+                      print(document.toString());
+
+                      UserModel userdata = UserModel.fromMap(
+                          document.data() as Map<String, dynamic>);
+                      currentUserData = userdata;
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => BottomBar()));
                       EasyLoading.dismiss();

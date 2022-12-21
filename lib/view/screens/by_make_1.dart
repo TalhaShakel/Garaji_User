@@ -186,7 +186,7 @@ class _ByMake1State extends State<ByMake1> {
                     borderRadius: BorderRadius.circular(80),
                     color: Color(0xffEAEAEA)),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
+                  padding: const EdgeInsets.only(left: 20.0),
                   child: TextFormField(
                     controller: defaultvalue2,
                     decoration: InputDecoration(
@@ -199,14 +199,14 @@ class _ByMake1State extends State<ByMake1> {
                 height: 30,
               ),
               InkWell(
-                onTap: () {
+                onTap: () async {
                   print(defaultvalue2.text.trim().toString() + "asd");
                   if (defaultvalue2.text.trim() == "") {
                     Get.snackbar("Please Select The Vehicle's make", "");
                   } else {
                     try {
                       EasyLoading.show();
-                      firestore_update("user", currentUserData.uid, {
+                      await firestore_update("user", currentUserData.uid, {
                         "vehicleBrand": defaultvalue2.text.trim().toString()
                       });
                       EasyLoading.dismiss();
