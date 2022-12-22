@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:garaji_user_app/Services/service.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../components/drawer_screen.dart';
@@ -15,6 +16,9 @@ class Conditions extends StatefulWidget {
 
 class _ConditionsState extends State<Conditions> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  var isAccept = false;
+  var isDecline = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +50,7 @@ class _ConditionsState extends State<Conditions> {
               textStyle: TextStyle(
                   color: Color(0xff3C3D3F),
                   fontSize: 17,
-                  fontWeight: FontWeight.w500)),                  
+                  fontWeight: FontWeight.w500)),
         ),
         actions: [
           Padding(
@@ -759,40 +763,66 @@ class _ConditionsState extends State<Conditions> {
                 height: 45,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 39,
-                    width: 157,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Color(0xff2F80ED)),
-                    child: Center(
-                      child: Text(
-                        "I accept",
-                        style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
-                      ),
-                    ),
+                  SizedBox(
+                    width: 20,
                   ),
-                  Container(
-                    height: 39,
-                    width: 157,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Color(0xffF6F6F6)),
-                    child: Center(
-                      child: Text(
-                        "I decline",
-                        style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black),
-                      ),
-                    ),
+                  isDecline == false
+                      ? GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isAccept = !isAccept;
+                            });
+                            Get.snackbar(
+                                "You Accept The Terms And Conditions", "");
+                          },
+                          child: Container(
+                            height: 39,
+                            width: 157,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: Color(0xff2F80ED)),
+                            child: Center(
+                              child: Text(
+                                "I accept",
+                                style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(),
+                  SizedBox(
+                    width: 20,
                   ),
+                  isAccept == false
+                      ? GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isDecline = !isDecline;
+                            });
+                          },
+                          child: Container(
+                            height: 39,
+                            width: 157,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: Color(0xffF6F6F6)),
+                            child: Center(
+                              child: Text(
+                                "I decline",
+                                style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
               SizedBox(
